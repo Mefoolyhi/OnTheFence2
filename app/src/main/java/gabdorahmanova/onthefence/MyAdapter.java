@@ -3,32 +3,22 @@ package gabdorahmanova.onthefence;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 /**
  * Created by admin on 07.02.2018.
  */
 
-public class MyAdapter extends FragmentPagerAdapter {
-    private String[] mDataset;
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
-    @Override
-    public Fragment getItem(int position) {
-        return null;
-    }
-
-    @Override
-    public int getCount() {
-        return 0;
-    }
-
-    public MyAdapter(FragmentManager fm) {
-        super(fm);
-    }
 
 
 
@@ -36,13 +26,29 @@ public class MyAdapter extends FragmentPagerAdapter {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView mTextView;
-        public ViewHolder(View v) {
-            super(v);
-            mTextView = v.findViewById(R.id.tvlist);
-            v.setOnClickListener(this);
+
+
+        CardView cv;
+        TextView personName;
+        ImageView personPhoto;
+        ViewHolder(View itemView) {
+            super(itemView);
+            cv = itemView.findViewById(R.id.cv);
+            personName = itemView.findViewById(R.id.person_name);
+            personPhoto = itemView.findViewById(R.id.person_photo);
         }
     }
+
+    ArrayList<String> persons;
+    MyAdapter(ArrayList<String> persons){
+        this.persons = persons;
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+    }
+
 
 
     @Override
@@ -58,11 +64,12 @@ public class MyAdapter extends FragmentPagerAdapter {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.mTextView.setText(mDataset[position]);
-
+        holder.personName.setText(persons.get(position));
     }
+
+
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return persons.size();
     }
 }

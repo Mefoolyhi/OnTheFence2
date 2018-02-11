@@ -18,7 +18,7 @@ public class TheatresFragment extends Fragment {
 
 
 
-    private final ArrayList<String> data = new ArrayList<String>();
+    private final ArrayList<String> data = new ArrayList<>();
 
 
     @Override

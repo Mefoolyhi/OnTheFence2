@@ -7,8 +7,9 @@ import android.provider.BaseColumns;
  */
 
 public final class DataContract {
-    private HotelContract() {
-    };
+    private DataContract() {
+    }
+
 
     public static final class GuestEntry implements BaseColumns {
         public final static String TABLE_NAME = "theatres";
