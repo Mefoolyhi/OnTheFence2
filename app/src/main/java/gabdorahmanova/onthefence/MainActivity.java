@@ -2,7 +2,9 @@ package gabdorahmanova.onthefence;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -74,6 +76,24 @@ public class MainActivity extends FragmentActivity
 
 
         bottomNavigationView.getMenu().getItem(0).setChecked(true);
+
+
+        SharedPreferences sp = getSharedPreferences("hasVisited",
+                Context.MODE_PRIVATE);
+        // проверяем, первый ли раз открывается программа
+        boolean hasVisited = sp.getBoolean("hasVisited", false);
+
+        if (!hasVisited) {
+
+
+            Intent intent = new Intent(this, LoginActivity.class);
+             startActivity(intent);
+
+            SharedPreferences.Editor e = sp.edit();
+            e.putBoolean("hasVisited", true);
+            e.commit();
+
+        }
     }
 
 

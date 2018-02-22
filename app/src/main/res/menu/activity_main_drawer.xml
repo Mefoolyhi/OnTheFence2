@@ -6,35 +6,28 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_show"
-            android:icon="@drawable/ic_menu_camera"
             android:title="Гастроли" />
         <item
             android:id="@+id/nav_concert"
-            android:icon="@drawable/ic_menu_gallery"
             android:title="Концерты" />
         <item
             android:id="@+id/nav_perfomance"
-            android:icon="@drawable/ic_menu_slideshow"
             android:title="Спектакли" />
         <item
             android:id="@+id/nav_history"
-            android:icon="@drawable/ic_menu_manage"
             android:title="История" />
         <item
             android:id="@+id/nav_myPerfomance"
-            android:icon="@drawable/ic_menu_manage"
             android:title="Мои спектакли" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title=" ">
         <menu>
             <item
                 android:id="@+id/nav_settings"
-                android:icon="@drawable/ic_menu_share"
                 android:title="Настройки" />
             <item
                 android:id="@+id/nav_help"
-                android:icon="@drawable/ic_menu_send"
                 android:title="Помощь" />
         </menu>
     </item>
