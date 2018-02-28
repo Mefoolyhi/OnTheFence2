@@ -36,15 +36,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
 
         CardView cv;
-        TextView personName;
-        ImageView personPhoto;
+        TextView theatreName;
+        ImageView theatrePhoto;
 
         CardViewClickListener cvListener = new CardViewClickListener();
         ViewHolder(View itemView) {
             super(itemView);
             cv = itemView.findViewById(R.id.cv);
-            personName = itemView.findViewById(R.id.person_name);
-            personPhoto = itemView.findViewById(R.id.person_photo);
+            theatreName = itemView.findViewById(R.id.person_name);
+            theatrePhoto = itemView.findViewById(R.id.person_photo);
             cv.setOnClickListener(cvListener);
         }
     }
@@ -61,9 +61,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
 
-    ArrayList<String> persons;
+    private ArrayList<Theatre> persons;
     private Context context;
-    MyAdapter(ArrayList<String> persons, Context context){
+    MyAdapter(ArrayList<Theatre> persons, Context context){
         this.persons = persons;
         this.context = context;
 
@@ -88,28 +88,36 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder,  int position) {
 
-        holder.personName.setText(persons.get(position));
-        new Thread(new Runnable() {//новый поток для работы с сетью. Иначе рабоать не будет!
-            @Override
-            public void run() {
-                try {
-                    URL url = new URL(TheatresFragment.links.get(position));
-                    final Bitmap poster = BitmapFactory.decodeStream(url.openConnection().getInputStream()); // полчаем картинку по ссылке
-                    ((Activity) context).runOnUiThread(new Runnable() { // с визуальными элментами можем работать только в главном потоке! Тут нам помогает контект.
-                        @Override
-                        public void run() {
-                            
-                            holder.personPhoto.setImageBitmap(poster); //отображаем картинку
-                        }
-                    });
-                } catch (IOException e) {
-                    e.printStackTrace();
+        final Theatre theater = persons.get(position);
+        holder.theatreName.setText(theater.name);
+
+
+        if (theater.getPicture() == null) {// проверяем есть у нас сохранёная картинка, если нет, скачиваем и сохраняем в память
+
+            new Thread(new Runnable() {//новый поток для работы с сетью. Иначе рабоать не будет!
+                @Override
+                public void run() {
+                    try {
+                        URL url = new URL(theater.piclink);
+                        final Bitmap pic = BitmapFactory.decodeStream(url.openConnection().getInputStream()); // полчаем картинку по ссылке
+                        ((Activity) context).runOnUiThread(new Runnable() { // с визуальными элментами можем работать только в главном потоке! Тут нам помогает контект.
+                            @Override
+                            public void run() {
+                                theater.setPicture(pic); // сохраяем картинку, чтобы при повторном проистовании не загружать снова
+                                holder.theatrePhoto.setImageBitmap(pic);                           }
+                        });
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-        }).start();
+            }).start();
 
+
+        } else {
+            holder.theatrePhoto.setImageBitmap(theater.getPicture());
+        }
 
 
 

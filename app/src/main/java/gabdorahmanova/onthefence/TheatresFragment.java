@@ -23,8 +23,7 @@ import gabdorahmanova.onthefence.data.DataHelper;
 public class TheatresFragment extends Fragment {
 
 
-    private final ArrayList<String> data = new ArrayList<>();
-    public static final ArrayList<String> links = new ArrayList<>();
+    private final ArrayList<Theatre> data = new ArrayList<>();
     private DataHelper helper;
 
     private Cursor c = null;
@@ -60,8 +59,8 @@ public class TheatresFragment extends Fragment {
         c = helper.query("theatres",null , null, null, null, null, null);
         if (c.moveToFirst()) {
             do {
-                data.add(c.getString(1));
-                links.add(c.getString(2));
+                Theatre th = new Theatre(c.getString(1),c.getString(5),c.getString(3),c.getString(2),c.getString(4));
+                data.add(th);
             } while (c.moveToNext());
         }
         RecyclerView.LayoutManager llm = new LinearLayoutManager(getActivity());
