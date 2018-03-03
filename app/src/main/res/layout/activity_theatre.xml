@@ -1,9 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.samsung.itschool.onthefence.TheatreActivity">
+    tools:context="gabdorahmanova.onthefence.TheatreActivity">
 
-</android.support.constraint.ConstraintLayout>
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/person_photo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="16dp"
+        android:layout_margin="5dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/info"
+        android:layout_alignParentTop="true"
+        android:layout_margin="5dp"
+        android:layout_toRightOf="@+id/person_photo"
+        android:layout_marginLeft="16dp"
+        android:text="Адрес:
+Телефон:
+Сайт:
+"
+        android:textSize="15sp"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/person_photo"
+        >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/history"
+        android:layout_below="@+id/person_photo"
+        android:layout_margin="5dp"
+        android:layout_marginTop="16dp"
+        android:text="блаблабалбалбаблаблаблаблаблаблаблаблаблаблабла"
+        android:textSize="15sp"
+        />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/history"
+        android:layout_margin="5dp"
+    android:layout_marginTop="16dp"
+        ></FrameLayout>
+
+    </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

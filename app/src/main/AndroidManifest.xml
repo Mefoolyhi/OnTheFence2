@@ -40,7 +40,8 @@
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity android:name=".ChoosingActivity" />
-        <activity android:name=".TheatreActivity" />
+        <activity android:name=".TheatreActivity"
+            />
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"></activity>

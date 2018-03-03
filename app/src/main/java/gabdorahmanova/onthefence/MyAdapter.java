@@ -52,11 +52,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     class CardViewClickListener implements View.OnClickListener {
 
 
+        private Theatre theatre;
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(context, TheatreActivity.class);
+            intent.putExtra("theatre",theatre);
             context.startActivity(intent);
 
+        }
+
+
+        void setRecord(Theatre theatre) {
+            this.theatre = theatre;
         }
     }
 
@@ -118,6 +125,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         } else {
             holder.theatrePhoto.setImageBitmap(theater.getPicture());
         }
+        holder.cvListener.setRecord(theater);
 
 
 

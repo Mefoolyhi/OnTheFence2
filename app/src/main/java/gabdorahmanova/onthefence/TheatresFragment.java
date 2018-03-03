@@ -24,6 +24,7 @@ public class TheatresFragment extends Fragment {
 
 
     private final ArrayList<Theatre> data = new ArrayList<>();
+    private boolean used = false;
     private DataHelper helper;
 
     private Cursor c = null;
@@ -44,29 +45,36 @@ public class TheatresFragment extends Fragment {
 
 
 
-        helper = new DataHelper(getActivity());
 
-        try {
-            helper.createDataBase();
-        } catch (IOException ioe) {
-            throw new Error("Unable to create database");
-        }
-        try{
-            helper.openDataBase();
-        }catch (SQLException sqle) {
-            throw sqle;
-        }
-        c = helper.query("theatres",null , null, null, null, null, null);
-        if (c.moveToFirst()) {
-            do {
-                Theatre th = new Theatre(c.getString(1),c.getString(5),c.getString(3),c.getString(2),c.getString(4));
-                data.add(th);
-            } while (c.moveToNext());
+        if (used == false) {
+
+            helper = new DataHelper(getActivity());
+
+            try {
+                helper.createDataBase();
+            } catch (IOException ioe) {
+                throw new Error("Unable to create database");
+            }
+            try {
+                helper.openDataBase();
+            } catch (SQLException sqle) {
+                throw sqle;
+            }
+            c = helper.query("theatres", null, null, null, null, null, null);
+            if (c.moveToFirst()) {
+                do {
+                    Theatre th = new Theatre(c.getString(1), c.getString(5), c.getString(3), c.getString(2), c.getString(4));
+                    data.add(th);
+                } while (c.moveToNext());
+            }
+            used = true;
         }
         RecyclerView.LayoutManager llm = new LinearLayoutManager(getActivity());
-        rv.setLayoutManager(llm);
-        MyAdapter mAdapter = new MyAdapter(data,getActivity());
-        rv.setAdapter(mAdapter);
+            rv.setLayoutManager(llm);
+        MyAdapter mAdapter = new MyAdapter(data, getActivity());
+            rv.setAdapter(mAdapter);
+
+
         return view;
     }
     public static TheatresFragment newInstance() {
