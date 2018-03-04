@@ -47,6 +47,7 @@ public class MainActivity extends FragmentActivity
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
 
+        final DataTheatre data = new DataTheatre(this);
         bottomNavigationView.setOnNavigationItemSelectedListener
                 (new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -60,7 +61,7 @@ public class MainActivity extends FragmentActivity
                                 selectedFragment = FavouritesFragment.newInstance();
                                 break;
                             case R.id.action_item3:
-                                selectedFragment = TheatresFragment.newInstance();
+                                selectedFragment = TheatresFragment.newInstance(data.getData());
                                 break;
                         }
                         FragmentTransaction transaction = getFragmentManager().beginTransaction();

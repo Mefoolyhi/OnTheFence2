@@ -29,9 +29,10 @@ public class DataHelper extends SQLiteOpenHelper {
     private static String DB_NAME = "onthefencedata";
     private SQLiteDatabase myDataBase;
     private final Context myContext;
+    private static int DATABASE_VERSION = 1;
 
     public DataHelper(Context context) {
-        super(context, DB_NAME, null, 1);
+        super(context, DB_NAME, null, DATABASE_VERSION);
         myContext = context;
         this.DB_PATH = "/data/data/" + context.getPackageName() + "/" + "databases/";
         Log.e("Path 1", DB_PATH);

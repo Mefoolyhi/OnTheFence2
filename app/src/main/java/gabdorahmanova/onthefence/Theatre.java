@@ -18,9 +18,9 @@ public class Theatre implements Parcelable{
     String history;
     String piclink;
 
-    Theatre( String name,
-            String link,
-            String info, String piclink, String history){
+    public Theatre(String name,
+                   String link,
+                   String info, String piclink, String history){
         this.name = name;
         this.link = link;
         this.info = info;
