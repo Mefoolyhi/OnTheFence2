@@ -98,13 +98,7 @@ public class DataHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (newVersion > oldVersion)
-            try {
-                copyDataBase();
-            } catch (IOException e) {
-                e.printStackTrace();
 
-            }
     }
     public Cursor query(String table, String columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy) {
         return myDataBase.query("theatres", null, null, null, null, null, null);

@@ -15,22 +15,38 @@
             android:layout_height="wrap_content"
             android:padding="16dp"
             >
-            <ImageView
+            <FrameLayout
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:id="@+id/person_photo"
+
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="16dp"
                 android:layout_margin="5dp"
-                />
+                android:id="@+id/frame"
+                >
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/person_photo"
+
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Фото"
+                    android:layout_gravity="center"
+                    />
+            </FrameLayout>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/person_name"
 
                 android:text="Text"
-                android:layout_toRightOf="@+id/person_photo"
+                android:layout_toRightOf="@+id/frame"
                 android:layout_alignParentTop="true"
                 android:textSize="15sp"
                 android:layout_margin="5dp"

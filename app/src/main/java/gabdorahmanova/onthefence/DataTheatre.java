@@ -3,6 +3,8 @@ package gabdorahmanova.onthefence;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,8 +19,10 @@ public class DataTheatre {
     ArrayList<Theatre> data;
 
     DataTheatre(Context context) {
+
         Cursor c;
         data = new ArrayList<>();
+
         DataHelper helper = new DataHelper(context);
 
         try {
