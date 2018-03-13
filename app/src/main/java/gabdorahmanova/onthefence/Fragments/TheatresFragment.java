@@ -1,4 +1,4 @@
-package gabdorahmanova.onthefence;
+package gabdorahmanova.onthefence.Fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
@@ -10,6 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+
+import gabdorahmanova.onthefence.Adapters.TheatresFragmentAdapter;
+import gabdorahmanova.onthefence.R;
+import gabdorahmanova.onthefence.Units.Theatre;
 
 
 /**
@@ -41,7 +45,7 @@ public class TheatresFragment extends Fragment {
         RecyclerView rv = view.findViewById(R.id.rv_news);
         RecyclerView.LayoutManager llm = new LinearLayoutManager(getActivity());
             rv.setLayoutManager(llm);
-        MyAdapter mAdapter = new MyAdapter(data, getActivity());
+        TheatresFragmentAdapter mAdapter = new TheatresFragmentAdapter(data, getActivity());
             rv.setAdapter(mAdapter);
         return view;
     }

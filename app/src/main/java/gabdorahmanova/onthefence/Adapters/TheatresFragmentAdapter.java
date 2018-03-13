@@ -1,13 +1,10 @@
-package gabdorahmanova.onthefence;
+package gabdorahmanova.onthefence.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,11 +17,15 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import gabdorahmanova.onthefence.R;
+import gabdorahmanova.onthefence.Activities.TheatreActivity;
+import gabdorahmanova.onthefence.Units.Theatre;
+
 /**
  * Created by admin on 07.02.2018.
  */
 
-public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+public class TheatresFragmentAdapter extends RecyclerView.Adapter<TheatresFragmentAdapter.ViewHolder> {
 
 
 
@@ -53,24 +54,26 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
 
         private Theatre theatre;
+        int pos;
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(context, TheatreActivity.class);
-            intent.putExtra("theatre",theatre);
+            intent.putExtra("theatre",pos);
             context.startActivity(intent);
 
         }
 
 
-        void setRecord(Theatre theatre) {
+        void setRecord(Theatre theatre,int pos) {
             this.theatre = theatre;
+            this.pos = pos;
         }
     }
 
 
     private ArrayList<Theatre> persons;
     private Context context;
-    MyAdapter(ArrayList<Theatre> persons, Context context){
+    public TheatresFragmentAdapter(ArrayList<Theatre> persons, Context context){
         this.persons = persons;
         this.context = context;
 
@@ -84,8 +87,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
 
     @Override
-    public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
+    public TheatresFragmentAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                                 int viewType) {
 
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.listitem, parent, false);
@@ -98,7 +101,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public void onBindViewHolder(final ViewHolder holder,  int position) {
 
         final Theatre theater = persons.get(position);
-        holder.theatreName.setText(theater.name);
+        holder.theatreName.setText(theater.getName());
 
 
         if (theater.getPicture() == null) {// проверяем есть у нас сохранёная картинка, если нет, скачиваем и сохраняем в память
@@ -107,7 +110,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 @Override
                 public void run() {
                     try {
-                        URL url = new URL(theater.piclink);
+                        URL url = new URL(theater.getPiclink());
                         final Bitmap pic = BitmapFactory.decodeStream(url.openConnection().getInputStream()); // полчаем картинку по ссылке
                         ((Activity) context).runOnUiThread(new Runnable() { // с визуальными элментами можем работать только в главном потоке! Тут нам помогает контект.
                             @Override
@@ -125,7 +128,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         } else {
             holder.theatrePhoto.setImageBitmap(theater.getPicture());
         }
-        holder.cvListener.setRecord(theater);
+        holder.cvListener.setRecord(theater,position);
 
 
 

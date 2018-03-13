@@ -1,10 +1,12 @@
-package gabdorahmanova.onthefence;
+package gabdorahmanova.onthefence.Fragments;
 
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import gabdorahmanova.onthefence.R;
 
 /**
  * Created by User on 27.01.2018.

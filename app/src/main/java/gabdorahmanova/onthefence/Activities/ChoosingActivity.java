@@ -1,4 +1,4 @@
-package gabdorahmanova.onthefence;
+package gabdorahmanova.onthefence.Activities;
 
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Calendar;
+
+import gabdorahmanova.onthefence.R;
 
 public class ChoosingActivity extends AppCompatActivity {
 

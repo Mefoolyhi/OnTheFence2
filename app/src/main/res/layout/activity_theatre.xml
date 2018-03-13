@@ -4,25 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="gabdorahmanova.onthefence.TheatreActivity">
+    tools:context="gabdorahmanova.onthefence.Activities.TheatreActivity">
 
-
-    <ImageView
+    <FrameLayout
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:id="@+id/person_photo"
+        android:id="@+id/frame"
+
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginRight="16dp"
         android:layout_margin="5dp"
-        />
+        >
+
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/person_photo" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Фото"
+            android:layout_gravity="center"
+            />
+
+    </FrameLayout>
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/info"
         android:layout_alignParentTop="true"
         android:layout_margin="5dp"
-        android:layout_toRightOf="@+id/person_photo"
+        android:layout_toRightOf="@+id/frame"
         android:layout_marginLeft="16dp"
         android:text="Адрес:
 Телефон:
@@ -34,7 +50,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/person_photo"
+        android:layout_below="@+id/frame"
         >
 
     <LinearLayout

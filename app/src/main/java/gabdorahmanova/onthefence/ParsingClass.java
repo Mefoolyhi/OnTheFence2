@@ -4,12 +4,14 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import java.util.ArrayList;
 
+import gabdorahmanova.onthefence.Units.PostValue;
+
 /**
  * Created by admin on 18.02.2018.
  */
 
 public class ParsingClass extends DefaultHandler {
-    private String URL = "http://культура.екатеринбург.рф/news/564/";
+    private String URL = "https://www.oblgazeta.ru/culture/ ";
 
 
     private ArrayList<PostValue> items = new ArrayList<>();

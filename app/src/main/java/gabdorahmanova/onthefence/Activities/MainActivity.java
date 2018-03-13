@@ -1,4 +1,4 @@
-package gabdorahmanova.onthefence;
+package gabdorahmanova.onthefence.Activities;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -16,6 +16,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+
+import gabdorahmanova.onthefence.Fragments.FavouritesFragment;
+import gabdorahmanova.onthefence.Fragments.TheatresFragment;
+import gabdorahmanova.onthefence.Fragments.NewsFragment;
+import gabdorahmanova.onthefence.R;
+import gabdorahmanova.onthefence.data.DataTheatre;
 
 public class MainActivity extends FragmentActivity
         implements NavigationView.OnNavigationItemSelectedListener {

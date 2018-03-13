@@ -1,4 +1,4 @@
-package gabdorahmanova.onthefence;
+package gabdorahmanova.onthefence.Activities;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
