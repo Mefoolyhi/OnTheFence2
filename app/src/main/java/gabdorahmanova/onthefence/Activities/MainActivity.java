@@ -93,8 +93,6 @@ public class MainActivity extends FragmentActivity
         if (!hasVisited) {
 
 
-            Intent intent = new Intent(this, LoginActivity.class);
-             startActivity(intent);
 
             SharedPreferences.Editor e = sp.edit();
             e.putBoolean("hasVisited", true);

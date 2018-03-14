@@ -27,6 +27,9 @@
             android:layout_height="wrap_content"
             android:text="Фото"
             android:layout_gravity="center"
+
+            android:id="@+id/helper"
+            android:visibility="visible"
             />
 
     </FrameLayout>
@@ -44,7 +47,7 @@
 Телефон:
 Сайт:
 "
-        android:textSize="15sp"
+        android:textSize="17sp"
         />
 
     <ScrollView

@@ -37,7 +37,7 @@ public class TheatresFragmentAdapter extends RecyclerView.Adapter<TheatresFragme
 
 
         CardView cv;
-        TextView theatreName;
+        TextView theatreName,helper;
         ImageView theatrePhoto;
 
         CardViewClickListener cvListener = new CardViewClickListener();
@@ -46,6 +46,7 @@ public class TheatresFragmentAdapter extends RecyclerView.Adapter<TheatresFragme
             cv = itemView.findViewById(R.id.cv);
             theatreName = itemView.findViewById(R.id.person_name);
             theatrePhoto = itemView.findViewById(R.id.person_photo);
+            helper = itemView.findViewById(R.id.helper);
             cv.setOnClickListener(cvListener);
         }
     }
@@ -53,7 +54,6 @@ public class TheatresFragmentAdapter extends RecyclerView.Adapter<TheatresFragme
     class CardViewClickListener implements View.OnClickListener {
 
 
-        private Theatre theatre;
         int pos;
         @Override
         public void onClick(View v) {
@@ -64,8 +64,8 @@ public class TheatresFragmentAdapter extends RecyclerView.Adapter<TheatresFragme
         }
 
 
-        void setRecord(Theatre theatre,int pos) {
-            this.theatre = theatre;
+        void setRecord(int pos) {
+
             this.pos = pos;
         }
     }
@@ -116,6 +116,7 @@ public class TheatresFragmentAdapter extends RecyclerView.Adapter<TheatresFragme
                             @Override
                             public void run() {
                                 theater.setPicture(pic); // сохраяем картинку, чтобы при повторном проистовании не загружать снова
+                                holder.helper.setVisibility(View.INVISIBLE);
                                 holder.theatrePhoto.setImageBitmap(pic);                           }
                         });
                     } catch (IOException e) {
@@ -128,7 +129,7 @@ public class TheatresFragmentAdapter extends RecyclerView.Adapter<TheatresFragme
         } else {
             holder.theatrePhoto.setImageBitmap(theater.getPicture());
         }
-        holder.cvListener.setRecord(theater,position);
+        holder.cvListener.setRecord(position);
 
 
 

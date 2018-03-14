@@ -10,6 +10,13 @@ public class PostValue {
     private String time,heading,link;
     private Bitmap picture;
 
+
+    public PostValue(String time, String heading, String link){
+        this.time = time;
+        this.heading = heading;
+        this.link = link;
+    }
+
     public String getTime() {
         return time;
     }

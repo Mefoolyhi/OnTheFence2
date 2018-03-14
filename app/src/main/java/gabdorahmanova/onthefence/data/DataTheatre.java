@@ -3,6 +3,7 @@ package gabdorahmanova.onthefence.data;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class DataTheatre {
     public Theatre getTheatre(int id) {
         Cursor c = helper.query("theatres", null, null, null, null, null, null);
         c.moveToPosition(id);
+        helper.close();
         Theatre theatre = new Theatre(c.getLong(0), c.getString(1), c.getString(5), c.getString(3), c.getString(2), c.getString(4));
         return theatre;
 

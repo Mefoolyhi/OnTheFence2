@@ -53,7 +53,8 @@ public class NewsFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             pc = new ParsingClass();
-
+            pc.get();
+            news = pc.getPostsList();
             return null;
         }
 
@@ -67,7 +68,7 @@ public class NewsFragment extends Fragment {
             super.onPostExecute(aVoid);
             RecyclerView.LayoutManager llm = new LinearLayoutManager(getActivity());
             rv.setLayoutManager(llm);
-            rv.setAdapter(new NewsAdapter(news,getContext()));
+            rv.setAdapter(new NewsAdapter(news,getActivity()));
 
         }
 

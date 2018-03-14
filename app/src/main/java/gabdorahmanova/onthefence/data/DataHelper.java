@@ -101,6 +101,7 @@ public class DataHelper extends SQLiteOpenHelper {
 
     }
     public Cursor query(String table, String columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy) {
+        this.openDataBase();
         return myDataBase.query("theatres", null, null, null, null, null, null);
     }
 }
