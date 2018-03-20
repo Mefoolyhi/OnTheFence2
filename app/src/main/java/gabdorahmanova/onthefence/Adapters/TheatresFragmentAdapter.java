@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +70,7 @@ public class TheatresFragmentAdapter extends RecyclerView.Adapter<TheatresFragme
             this.pos = pos;
         }
     }
+    LruCache<String, Bitmap> mMemoryCache;
 
 
     private ArrayList<Theatre> persons;
@@ -76,6 +78,12 @@ public class TheatresFragmentAdapter extends RecyclerView.Adapter<TheatresFragme
     public TheatresFragmentAdapter(ArrayList<Theatre> persons, Context context){
         this.persons = persons;
         this.context = context;
+        mMemoryCache = new LruCache<String, Bitmap>((int) (Runtime.getRuntime().maxMemory()) / 8) {
+            @Override
+            protected int sizeOf(String key, Bitmap bitmap) {
+                return bitmap.getByteCount();
+            }
+        };
 
     }
 
@@ -97,6 +105,15 @@ public class TheatresFragmentAdapter extends RecyclerView.Adapter<TheatresFragme
         return vh;
     }
 
+    void addBitmapToMemoryCache(String key, Bitmap bitmap) {
+        if (getBitmapFromMemCache(key) == null) {
+            mMemoryCache.put(key, bitmap);
+        }
+    }
+
+    Bitmap getBitmapFromMemCache(String key) {
+        return mMemoryCache.get(key);
+    }
     @Override
     public void onBindViewHolder(final ViewHolder holder,  int position) {
 
@@ -104,20 +121,28 @@ public class TheatresFragmentAdapter extends RecyclerView.Adapter<TheatresFragme
         holder.theatreName.setText(theater.getName());
 
 
-        if (theater.getPicture() == null) {// проверяем есть у нас сохранёная картинка, если нет, скачиваем и сохраняем в память
+        if (theater.getPicture() == null) {
 
             new Thread(new Runnable() {//новый поток для работы с сетью. Иначе рабоать не будет!
                 @Override
                 public void run() {
                     try {
                         URL url = new URL(theater.getPiclink());
-                        final Bitmap pic = BitmapFactory.decodeStream(url.openConnection().getInputStream()); // полчаем картинку по ссылке
-                        ((Activity) context).runOnUiThread(new Runnable() { // с визуальными элментами можем работать только в главном потоке! Тут нам помогает контект.
+                        Bitmap pic = getBitmapFromMemCache(url.toString());
+                        if (pic == null) {
+                            pic = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                            addBitmapToMemoryCache(url.toString(),pic);
+                        }
+
+                        final Bitmap finalPic = pic;
+                        ((Activity) context).runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                theater.setPicture(pic); // сохраяем картинку, чтобы при повторном проистовании не загружать снова
+                                theater.setPicture(finalPic);
                                 holder.helper.setVisibility(View.INVISIBLE);
-                                holder.theatrePhoto.setImageBitmap(pic);                           }
+                                holder.theatrePhoto.setImageBitmap(finalPic);
+
+                            }
                         });
                     } catch (IOException e) {
                         e.printStackTrace();
