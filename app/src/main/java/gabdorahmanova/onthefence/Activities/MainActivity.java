@@ -17,10 +17,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.ArrayList;
+
 import gabdorahmanova.onthefence.Fragments.FavouritesFragment;
 import gabdorahmanova.onthefence.Fragments.TheatresFragment;
 import gabdorahmanova.onthefence.Fragments.NewsFragment;
 import gabdorahmanova.onthefence.R;
+import gabdorahmanova.onthefence.Units.Theatre;
 import gabdorahmanova.onthefence.data.DataTheatre;
 
 public class MainActivity extends FragmentActivity
@@ -53,7 +56,6 @@ public class MainActivity extends FragmentActivity
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
 
-        final DataTheatre data = new DataTheatre(this);
         bottomNavigationView.setOnNavigationItemSelectedListener
                 (new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -67,7 +69,7 @@ public class MainActivity extends FragmentActivity
                                 selectedFragment = FavouritesFragment.newInstance();
                                 break;
                             case R.id.action_item3:
-                                selectedFragment = TheatresFragment.newInstance(data.getData());
+                                selectedFragment = TheatresFragment.newInstance();
                                 break;
                         }
                         FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -91,6 +93,7 @@ public class MainActivity extends FragmentActivity
         boolean hasVisited = sp.getBoolean("hasVisited", false);
 
         if (!hasVisited) {
+
 
 
 

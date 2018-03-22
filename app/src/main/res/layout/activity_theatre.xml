@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context="gabdorahmanova.onthefence.Activities.TheatreActivity">
 
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+          >
     <FrameLayout
         android:layout_width="150dp"
         android:layout_height="150dp"
@@ -35,63 +40,86 @@
     </FrameLayout>
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/info"
-        android:layout_alignParentTop="true"
-        android:layout_margin="5dp"
-        android:layout_toRightOf="@+id/frame"
-        android:layout_marginLeft="16dp"
-        android:text="Адрес:
-Телефон:
-Сайт:
-"
-        android:textSize="17sp"
-        />
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/frame"
-        >
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/history"
-        android:layout_below="@+id/person_photo"
-        android:layout_margin="5dp"
-        android:layout_marginTop="16dp"
-        android:text="блаблабалбалбаблаблаблаблаблаблаблаблаблаблабла"
-        android:textSize="15sp"
-        />
-
-
-
-        <GridView
-            android:layout_below="@+id/history"
-            android:layout_margin="5dp"
-            android:layout_marginTop="16dp"
-            android:id="@+id/schedule"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </GridView>
-        <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Репертуар на сезон пока отсутствует"
-            android:textSize="15sp"
-            android:id="@+id/default_text"
-            android:visibility="invisible"
-
+            android:id="@+id/info"
+            android:layout_margin="5dp"
+            android:layout_below="@+id/favourite"
+            android:layout_toRightOf="@+id/frame"
+            android:layout_marginLeft="16dp"
+            android:text="Адрес:"
+            android:textSize="17sp"
             />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/number"
+                android:layout_margin="5dp"
 
-    </LinearLayout>
-    </ScrollView>
+                android:layout_toRightOf="@+id/frame"
+                android:layout_below="@+id/info"
+                android:layout_marginLeft="16dp"
+                android:text="Номер"
+                android:linksClickable="true"
+                android:autoLink="phone"
+                android:textSize="17sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_toRightOf="@+id/frame"
+                android:id="@+id/site"
+                android:layout_margin="5dp"
+                android:layout_below="@+id/number"
+                android:layout_marginLeft="16dp"
+                android:text="Сайт:"
+                android:linksClickable="true"
+                android:autoLink="web"
+                android:textSize="17sp"
+                />
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_favorite_border_black_24dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:id="@+id/favourite"
+        />
+
+
+
+
+
+            <ListView
+                android:layout_margin="5dp"
+                android:layout_marginTop="16dp"
+                android:id="@+id/schedule"
+                android:visibility="visible"
+                android:layout_below="@id/site"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </ListView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Репертуар на сезон пока отсутствует"
+                android:textSize="15sp"
+                android:id="@+id/default_text"
+                android:visibility="invisible"
+                android:layout_below="@id/site"
+
+                />
+        </RelativeLayout>
+
+
+
+
+
+
+
 </RelativeLayout>

@@ -37,7 +37,6 @@ public class ParsingClass {
     public void get(){
         try{
             Document doc = Jsoup.connect(URL).get();
-            Log.e("Document",doc.toString());
             Elements content = doc.select(".effect-sarah desctop_view");
             times.clear();
             for (Element contains : content){

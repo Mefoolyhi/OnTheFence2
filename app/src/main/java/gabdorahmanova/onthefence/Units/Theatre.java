@@ -9,22 +9,52 @@ import android.os.Parcelable;
  */
 
 public class Theatre{
-    long id;
+    int id;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
+    Integer fav;
     String name;
     private Bitmap picture;
     String link;
     String info;
-    String history;
     String piclink;
+
+    String number,site;
+    public Integer getFav() {
+        return fav;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public String getSite() {
+        return site;
+    }
+
+    public void setSite(String site) {
+        this.site = site;
+    }
+
+    @Override
+    public String toString() {
+        return name+" "+id+" "+fav;
+    }
+
+    public void setFav(Integer fav) {
+        this.fav = fav;
+    }
 
     public String getName() {
         return name;
@@ -50,13 +80,6 @@ public class Theatre{
         this.info = info;
     }
 
-    public String getHistory() {
-        return history;
-    }
-
-    public void setHistory(String history) {
-        this.history = history;
-    }
 
     public String getPiclink() {
         return piclink;
@@ -66,15 +89,17 @@ public class Theatre{
         this.piclink = piclink;
     }
 
-    public Theatre(long id,String name,
+    public Theatre(int id,String name,
                    String link,
-                   String info, String piclink, String history){
+                   String info, String piclink, String number,String site, Integer fav){
         this.name = name;
         this.id = id;
         this.link = link;
         this.info = info;
-        this.history = history;
         this.piclink = piclink;
+        this.fav = fav;
+        this.site = site;
+        this.number = number;
     }
 
 

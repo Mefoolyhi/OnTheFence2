@@ -2,6 +2,7 @@ package gabdorahmanova.onthefence.Fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,13 +15,13 @@ import java.util.ArrayList;
 import gabdorahmanova.onthefence.Adapters.TheatresFragmentAdapter;
 import gabdorahmanova.onthefence.R;
 import gabdorahmanova.onthefence.Units.Theatre;
+import gabdorahmanova.onthefence.data.DataTheatre;
 
 
 /**
  * Created by User on 27.01.2018.
  */
 
-@SuppressLint("ValidFragment")
 public class TheatresFragment extends Fragment {
 
 
@@ -32,25 +33,24 @@ public class TheatresFragment extends Fragment {
     }
 
     private View view;
-    private ArrayList<Theatre> data;
-    @SuppressLint("ValidFragment")
-    TheatresFragment(ArrayList<Theatre> data){
-        this.data = data;
-    }
+    public TheatresFragment(){}
 
 
+    RecyclerView rv;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
          view =  inflater.inflate(R.layout.fragment_news, container, false);
-        RecyclerView rv = view.findViewById(R.id.rv_news);
+        rv = view.findViewById(R.id.rv_news);
         RecyclerView.LayoutManager llm = new LinearLayoutManager(getActivity());
             rv.setLayoutManager(llm);
-        TheatresFragmentAdapter mAdapter = new TheatresFragmentAdapter(data, getActivity());
+            DataTheatre dt = new DataTheatre(getActivity());
+        ArrayList<Theatre> data = dt.getData();
+        TheatresFragmentAdapter mAdapter = new TheatresFragmentAdapter(data, getActivity(),"theatres");
             rv.setAdapter(mAdapter);
         return view;
     }
-    public static TheatresFragment newInstance(ArrayList<Theatre> data) {
-        TheatresFragment fragment = new TheatresFragment(data);
+    public static TheatresFragment newInstance() {
+        TheatresFragment fragment = new TheatresFragment();
         return fragment;
     }
 
@@ -60,5 +60,12 @@ public class TheatresFragment extends Fragment {
 
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        DataTheatre dt = new DataTheatre(getActivity());
+        ArrayList<Theatre> data = dt.getData();
+        TheatresFragmentAdapter mAdapter = new TheatresFragmentAdapter(data, getActivity(),"theatres");
+        rv.setAdapter(mAdapter);
+    }
 }

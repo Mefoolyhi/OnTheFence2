@@ -52,6 +52,7 @@ public class TheatresFragmentAdapter extends RecyclerView.Adapter<TheatresFragme
         }
     }
 
+    String way;
     class CardViewClickListener implements View.OnClickListener {
 
 
@@ -59,7 +60,8 @@ public class TheatresFragmentAdapter extends RecyclerView.Adapter<TheatresFragme
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(context, TheatreActivity.class);
-            intent.putExtra("theatre",pos);
+
+            intent.putExtra(way,pos);
             context.startActivity(intent);
 
         }
@@ -75,9 +77,10 @@ public class TheatresFragmentAdapter extends RecyclerView.Adapter<TheatresFragme
 
     private ArrayList<Theatre> persons;
     private Context context;
-    public TheatresFragmentAdapter(ArrayList<Theatre> persons, Context context){
+    public TheatresFragmentAdapter(ArrayList<Theatre> persons, Context context,String way){
         this.persons = persons;
         this.context = context;
+        this.way = way;
         mMemoryCache = new LruCache<String, Bitmap>((int) (Runtime.getRuntime().maxMemory()) / 8) {
             @Override
             protected int sizeOf(String key, Bitmap bitmap) {
