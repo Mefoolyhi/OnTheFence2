@@ -3,12 +3,12 @@
 
     <item
         android:id="@+id/action_item1"
-        android:title="News"/>
+        android:title="Новости"/>
     <item
         android:id="@+id/action_item2"
-        android:title="Favourites"
+        android:title="Театры"
         />
     <item
         android:id="@+id/action_item3"
-        android:title="Theatres"/>
+        android:title="Избранное"/>
 </menu>

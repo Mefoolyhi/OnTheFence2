@@ -23,7 +23,7 @@
         >
 
 
-        <ImageView
+        <com.facebook.drawee.view.SimpleDraweeView
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:id="@+id/person_photo" />

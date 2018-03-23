@@ -30,10 +30,14 @@ public class TheatresFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        DataTheatre dt = new DataTheatre(getActivity());
+         data = dt.getData();
+
     }
 
     private View view;
     public TheatresFragment(){}
+    ArrayList<Theatre> data;
 
 
     RecyclerView rv;
@@ -44,7 +48,7 @@ public class TheatresFragment extends Fragment {
         RecyclerView.LayoutManager llm = new LinearLayoutManager(getActivity());
             rv.setLayoutManager(llm);
             DataTheatre dt = new DataTheatre(getActivity());
-        ArrayList<Theatre> data = dt.getData();
+        data = dt.getData();
         TheatresFragmentAdapter mAdapter = new TheatresFragmentAdapter(data, getActivity(),"theatres");
             rv.setAdapter(mAdapter);
         return view;

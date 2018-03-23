@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import gabdorahmanova.onthefence.Adapters.TheatresFragmentAdapter;
 import gabdorahmanova.onthefence.R;
 import gabdorahmanova.onthefence.Units.Theatre;
+import gabdorahmanova.onthefence.data.DataHelper;
 import gabdorahmanova.onthefence.data.DataTheatre;
 
 /**
@@ -25,6 +26,7 @@ public class FavouritesFragment extends Fragment {
     private View view;
 
     public FavouritesFragment(){
+
     }
 
     @Override
@@ -56,7 +58,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
     rv.setItemAnimator(new DefaultItemAnimator());
     rv.setLayoutManager(new LinearLayoutManager(getActivity()));
     DataTheatre dt = new DataTheatre(getActivity());
-     data = dt.getFavourites();
+    data = dt.getFavourites();
     rv.setAdapter(new TheatresFragmentAdapter(data, getActivity(),"favourites"));
     return view;
         }

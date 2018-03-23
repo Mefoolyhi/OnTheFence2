@@ -17,6 +17,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+
 import java.util.ArrayList;
 
 import gabdorahmanova.onthefence.Fragments.FavouritesFragment;
@@ -33,6 +35,7 @@ public class MainActivity extends FragmentActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fresco.initialize(this);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
 
@@ -66,10 +69,12 @@ public class MainActivity extends FragmentActivity
                                 selectedFragment = NewsFragment.newInstance();
                                 break;
                             case R.id.action_item2:
-                                selectedFragment = FavouritesFragment.newInstance();
+
+                                selectedFragment = TheatresFragment.newInstance();
+
                                 break;
                             case R.id.action_item3:
-                                selectedFragment = TheatresFragment.newInstance();
+                                selectedFragment = FavouritesFragment.newInstance();
                                 break;
                         }
                         FragmentTransaction transaction = getFragmentManager().beginTransaction();

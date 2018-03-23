@@ -15,6 +15,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -40,7 +44,7 @@ public class TheatreActivity extends AppCompatActivity {
 
 
     TextView info,helper,defaultt,number,site;
-    ImageView picture;
+    SimpleDraweeView picture;
     Theatre theatre;
     ListView schedule;
     Integer fav;
@@ -52,6 +56,7 @@ public class TheatreActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_theatre);
         info = findViewById(R.id.info);
 
@@ -86,6 +91,7 @@ public class TheatreActivity extends AppCompatActivity {
         number.setText(theatre.getNumber());
         site.setText(theatre.getSite());
         fav = theatre.getFav();
+        defaultt.setText("Репертуар на сезон пока отсутствует");
         if (!fav.equals(-1)){
             favourite.setImageResource(R.drawable.ic_favorite_black_24dp);
             Log.e("fav",fav.toString());
@@ -97,42 +103,23 @@ public class TheatreActivity extends AppCompatActivity {
         new Thread(new Runnable() {//новый поток для работы с сетью. Иначе рабоать не будет!
             @Override
             public void run() {
-                try {
-                    URL url = new URL(theatre.getPiclink());
-
-
-                    final Bitmap pic;
-                    OutputStream fOut = null;
-
-
-                           pic = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-
-//                    File file = new File.createTempFile(Uri.parse(url.toString()).getLastPathSegment(),null,getApplicationContext().getCacheDir());
-//                    fOut = new FileOutputStream(file, Context.MODE_PRIVATE);
-
-//
-//                    Bitmap bitmap = (BitmapDrawable) iv.getDrawable().getBitmap();
-//                    bitmap.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
-//                    fOut.flush();
-//                    fOut.close();
 
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            theatre.setPicture(pic);
+
+                            picture.setImageURI(Uri.parse(theatre.getPiclink()));
                             helper.setVisibility(View.INVISIBLE);
-                            picture.setImageBitmap(pic);                           }
+                                                      }
                     });
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+
             }
         }).start();
 
 
 
-        new Thread(new Runnable() {//новый поток для работы с сетью. Иначе рабоать не будет!
+        new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -190,6 +177,8 @@ public class TheatreActivity extends AppCompatActivity {
 
                 } catch (IOException e) {
                     e.printStackTrace();
+                    defaultt.setText("Проблемы с подключением к Интернету");
+                    defaultt.setVisibility(View.VISIBLE);
                 }
             }
         }).start();

@@ -8,7 +8,7 @@ import android.os.Parcelable;
  * Created by admin on 28.02.2018.
  */
 
-public class Theatre{
+public class Theatre {
     int id;
 
     public int getId() {
@@ -21,12 +21,12 @@ public class Theatre{
 
     Integer fav;
     String name;
-    private Bitmap picture;
     String link;
     String info;
     String piclink;
 
-    String number,site;
+    String number, site;
+
     public Integer getFav() {
         return fav;
     }
@@ -49,7 +49,7 @@ public class Theatre{
 
     @Override
     public String toString() {
-        return name+" "+id+" "+fav;
+        return name + " " + id + " " + fav;
     }
 
     public void setFav(Integer fav) {
@@ -89,9 +89,9 @@ public class Theatre{
         this.piclink = piclink;
     }
 
-    public Theatre(int id,String name,
+    public Theatre(int id, String name,
                    String link,
-                   String info, String piclink, String number,String site, Integer fav){
+                   String info, String piclink, String number, String site, Integer fav) {
         this.name = name;
         this.id = id;
         this.link = link;
@@ -103,12 +103,6 @@ public class Theatre{
     }
 
 
-
-    public void setPicture(Bitmap picture){
-        this.picture = picture;
-    }
-    public Bitmap getPicture(){
-        return picture;
-    }}
+}
 
 
