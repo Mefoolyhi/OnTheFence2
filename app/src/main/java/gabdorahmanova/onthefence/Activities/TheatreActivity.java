@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +37,7 @@ import java.util.ArrayList;
 
 import gabdorahmanova.onthefence.Adapters.ScheduleAdapter;
 import gabdorahmanova.onthefence.Fragments.FavouritesFragment;
+import gabdorahmanova.onthefence.Helpers.OnSwipeTouchListener;
 import gabdorahmanova.onthefence.R;
 import gabdorahmanova.onthefence.Units.Performance;
 import gabdorahmanova.onthefence.Units.Theatre;
@@ -50,6 +53,7 @@ public class TheatreActivity extends AppCompatActivity {
     Integer fav;
     ImageButton favourite;
     ArrayList<String> titlelist = new ArrayList<>();
+    ProgressBar pb;
 
 
 
@@ -67,7 +71,21 @@ public class TheatreActivity extends AppCompatActivity {
         schedule = findViewById(R.id.schedule);
         defaultt = findViewById(R.id.default_text);
         favourite = findViewById(R.id.favourite);
+        pb = findViewById(R.id.progressBar);
 
+
+        RelativeLayout rl = findViewById(R.id.rl);
+        rl.setOnTouchListener(new OnSwipeTouchListener() {
+            @Override
+            public void onSwipeRight() {
+                finish();
+            }
+
+            @Override
+            public void onSwipeLeft() {
+
+            }
+        });
 
         int i = getIntent().getIntExtra("favourites", -1);
          int id = getIntent().getIntExtra("theatres", -1);
@@ -118,6 +136,7 @@ public class TheatreActivity extends AppCompatActivity {
         }).start();
 
 
+        pb.setVisibility(View.VISIBLE);
 
         new Thread(new Runnable() {
             @Override
@@ -142,7 +161,12 @@ public class TheatreActivity extends AppCompatActivity {
                                     Element e = cols.get(j-1);
                                     if (j % 5 != 0)
                                             titlelist.add(e.text().toString());
-                                    else {
+                                    else if (j % 4 != 0 && j % 2 == 0){
+
+                                        titlelist.add(e.select(".title").text().toString());
+                                    }
+                                    else
+                                    {
                                         try {
                                             Element element = e.selectFirst("a[href]");
                                             titlelist.add(element.attr("abs:href"));
@@ -169,6 +193,8 @@ public class TheatreActivity extends AppCompatActivity {
 
 
                                 schedule.setAdapter(new ScheduleAdapter(getApplicationContext(),data));
+
+                                pb.setVisibility(View.INVISIBLE);
 
                             }
 

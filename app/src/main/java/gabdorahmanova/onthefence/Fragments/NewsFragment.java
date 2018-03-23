@@ -2,6 +2,7 @@ package gabdorahmanova.onthefence.Fragments;
 
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,11 +10,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import gabdorahmanova.onthefence.Adapters.NewsAdapter;
-import gabdorahmanova.onthefence.ParsingClass;
+import gabdorahmanova.onthefence.Helpers.OnSwipeTouchListener;
+import gabdorahmanova.onthefence.Helpers.ParsingClass;
 import gabdorahmanova.onthefence.R;
 import gabdorahmanova.onthefence.Units.PostValue;
 
@@ -27,6 +31,8 @@ public class NewsFragment extends Fragment {
     View view;
     ArrayList<PostValue> news;
     RecyclerView rv;
+    ProgressBar pb;
+    TextView eror;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,7 +40,10 @@ public class NewsFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_news, container, false);
         rv = view.findViewById(R.id.rv_news);
 
-
+        pb = view.findViewById(R.id.progressBar);
+    eror = view.findViewById(R.id.eror_text);
+    pb.setVisibility(View.INVISIBLE);
+    eror.setVisibility(View.INVISIBLE);
 
 
         new MeTask().execute();
@@ -52,15 +61,22 @@ public class NewsFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            pc = new ParsingClass();
-            pc.get();
-            news = pc.getPostsList();
+            try {
+                pc = new ParsingClass();
+                pc.get();
+                news = pc.getPostsList();
+            }
+            catch (Exception e){
+                eror.setText("Пробдемы с подключением к интернету");
+                eror.setVisibility(View.VISIBLE);
+            }
             return null;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            pb.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -69,6 +85,8 @@ public class NewsFragment extends Fragment {
             RecyclerView.LayoutManager llm = new LinearLayoutManager(getActivity());
             rv.setLayoutManager(llm);
             rv.setAdapter(new NewsAdapter(news,getActivity()));
+            pb.setVisibility(View.INVISIBLE);
+
 
         }
 

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/rl"
     tools:context="gabdorahmanova.onthefence.Activities.TheatreActivity">
 
 
@@ -113,6 +114,14 @@
                 android:visibility="invisible"
                 android:layout_below="@id/site"
 
+                />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:visibility="invisible"
+                android:layout_below="@+id/site"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 />
         </RelativeLayout>
 

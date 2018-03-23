@@ -2,6 +2,7 @@ package gabdorahmanova.onthefence.Fragments;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +13,9 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import gabdorahmanova.onthefence.Adapters.NewsAdapter;
 import gabdorahmanova.onthefence.Adapters.TheatresFragmentAdapter;
+import gabdorahmanova.onthefence.Helpers.OnSwipeTouchListener;
 import gabdorahmanova.onthefence.R;
 import gabdorahmanova.onthefence.Units.Theatre;
 import gabdorahmanova.onthefence.data.DataTheatre;

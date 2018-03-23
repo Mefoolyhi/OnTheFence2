@@ -11,11 +11,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 
@@ -24,6 +26,7 @@ import java.util.ArrayList;
 import gabdorahmanova.onthefence.Fragments.FavouritesFragment;
 import gabdorahmanova.onthefence.Fragments.TheatresFragment;
 import gabdorahmanova.onthefence.Fragments.NewsFragment;
+import gabdorahmanova.onthefence.Helpers.OnSwipeTouchListener;
 import gabdorahmanova.onthefence.R;
 import gabdorahmanova.onthefence.Units.Theatre;
 import gabdorahmanova.onthefence.data.DataTheatre;
@@ -64,9 +67,12 @@ public class MainActivity extends FragmentActivity
                     @Override
                     public boolean onNavigationItemSelected(MenuItem item) {
                         Fragment selectedFragment = null;
+
                         switch (item.getItemId()) {
                             case R.id.action_item1:
                                 selectedFragment = NewsFragment.newInstance();
+
+
                                 break;
                             case R.id.action_item2:
 
@@ -77,9 +83,11 @@ public class MainActivity extends FragmentActivity
                                 selectedFragment = FavouritesFragment.newInstance();
                                 break;
                         }
+
                         FragmentTransaction transaction = getFragmentManager().beginTransaction();
                         transaction.replace(R.id.fragment, selectedFragment);
                         transaction.commit();
+
                         return true;
                     }
                 });
@@ -101,7 +109,6 @@ public class MainActivity extends FragmentActivity
 
 
 
-
             SharedPreferences.Editor e = sp.edit();
             e.putBoolean("hasVisited", true);
             e.commit();
@@ -109,7 +116,13 @@ public class MainActivity extends FragmentActivity
         }
     }
 
+public void changeTheBottom(int i){
 
+    BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
+
+    bottomNavigationView.getMenu().getItem(i).setChecked(true);
+
+}
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

@@ -1,11 +1,13 @@
 package gabdorahmanova.onthefence.Adapters;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.LruCache;
@@ -13,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -22,6 +25,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
+import gabdorahmanova.onthefence.Fragments.FavouritesFragment;
+import gabdorahmanova.onthefence.Fragments.NewsFragment;
+import gabdorahmanova.onthefence.Helpers.OnSwipeTouchListener;
 import gabdorahmanova.onthefence.R;
 import gabdorahmanova.onthefence.Activities.TheatreActivity;
 import gabdorahmanova.onthefence.Units.Theatre;
@@ -46,7 +52,7 @@ public class TheatresFragmentAdapter extends RecyclerView.Adapter<TheatresFragme
         SimpleDraweeView theatrePhoto;
 
         CardViewClickListener cvListener = new CardViewClickListener();
-        public ViewHolder(View itemView) {
+        public ViewHolder(final View itemView) {
             super(itemView);
             cv = itemView.findViewById(R.id.cv);
             theatreName = itemView.findViewById(R.id.person_name);

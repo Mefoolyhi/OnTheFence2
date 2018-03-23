@@ -6,7 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Activities.MainActivity">
 
-
     <FrameLayout
         android:id="@+id/fragment"
         android:layout_width="match_parent"

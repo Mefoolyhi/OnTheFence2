@@ -1,17 +1,23 @@
 package gabdorahmanova.onthefence.Fragments;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
+import gabdorahmanova.onthefence.Activities.MainActivity;
 import gabdorahmanova.onthefence.Adapters.TheatresFragmentAdapter;
+import gabdorahmanova.onthefence.Helpers.OnSwipeTouchListener;
 import gabdorahmanova.onthefence.R;
 import gabdorahmanova.onthefence.Units.Theatre;
 import gabdorahmanova.onthefence.data.DataHelper;
@@ -57,6 +63,7 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
     rv = view.findViewById(R.id.rv_news);
     rv.setItemAnimator(new DefaultItemAnimator());
     rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+
     DataTheatre dt = new DataTheatre(getActivity());
     data = dt.getFavourites();
     rv.setAdapter(new TheatresFragmentAdapter(data, getActivity(),"favourites"));
@@ -72,4 +79,8 @@ public View onCreateView(LayoutInflater inflater, ViewGroup container,
         public void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
         }
+
+
+
+
         }

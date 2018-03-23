@@ -1,4 +1,4 @@
-package gabdorahmanova.onthefence;
+package gabdorahmanova.onthefence.Helpers;
 
 
 
@@ -19,7 +19,7 @@ import gabdorahmanova.onthefence.Units.PostValue;
  */
 
 public class ParsingClass {
-    private String URL = "https://www.oblgazeta.ru/culture/ ";
+    private String URL = "http://www.justmedia.ru/news/culture ";
 
 
     private ArrayList<PostValue> items = new ArrayList<>();
@@ -34,22 +34,22 @@ public class ParsingClass {
         return items;
     }
 
-    public void get(){
-        try{
+    public void get() throws Exception{
+
             Document doc = Jsoup.connect(URL).get();
-            Elements content = doc.select(".effect-sarah desctop_view");
+            Elements content = doc.select(".b-subjects-list__date");
             times.clear();
             for (Element contains : content){
                 times.add(contains.text());
             }
             Log.e(Integer.toString(times.size()),times.toString());
-            content = doc.select(".lazy");
+            content = doc.select(".b-subjects-list__img").select("img");
             links.clear();
             for (Element contains: content){
-                links.add(contains.text());
+                links.add(contains.absUrl("src"));
             }
             Log.e(Integer.toString(links.size()),links.toString());
-            content = doc.select(".miko-wrapper");
+            content = doc.select(".b-subjects-list__title");
             headings.clear();
             for (Element contains: content){
                 headings.add(contains.text());
@@ -68,9 +68,7 @@ public class ParsingClass {
                 Log.e("PARsING","Разные размеры, ё маё");
             }
 
-        }catch (Exception e){
-            e.getMessage();
-        }
+
     }
 
 
