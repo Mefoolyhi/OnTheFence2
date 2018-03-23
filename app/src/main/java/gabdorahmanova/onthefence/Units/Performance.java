@@ -5,19 +5,28 @@ package gabdorahmanova.onthefence.Units;
  */
 
 public class Performance {
-    String name, cost,type,place,time;
+    String name, cost,type,place,time,link;
 
-    public Performance(String name, String cost, String place, String type, String time){
+    public Performance(String name, String cost, String place, String type, String time,String link){
         this.name = name;
         this.cost = cost;
         this.type = type;
         this.place = place;
         this.time = time;
+        this.link = link;
     }
 
     @Override
     public String toString() {
         return name+" "+type+" "+place+" "+cost+ " "+time + "\n";
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public String getName() {

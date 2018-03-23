@@ -25,17 +25,6 @@ public class DataTheatre {
 
 
         helper = new DataHelper(context);
-        try {
-            helper.createDataBase();
-        } catch (IOException ioe) {
-            throw new Error("Unable to create database");
-        }
-        try {
-            helper.openDataBase();
-        } catch (SQLException sqle) {
-            throw sqle;
-        }
-
 
     }
 
@@ -60,20 +49,15 @@ public class DataTheatre {
 
     }
     public void deleteFromFavourites(int id){
+        int j = this.getFavourites().size();
         helper.delete(id);
-
-        try {
-            helper.createDataBase();
-        } catch (IOException ioe) {
-            throw new Error("Unable to create database");
-        }
-        try {
-            helper.openDataBase();
-        } catch (SQLException sqle) {
-            throw sqle;
+        int y = this.getFavourites().size();
+        if (y == j){
+            Log.e("Delete","Удалить не удалось");
         }
 
-        Log.e("Delete", String.valueOf(this.getFavourites().size()));
+
+
 
 
 

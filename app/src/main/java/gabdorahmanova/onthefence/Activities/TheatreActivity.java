@@ -1,8 +1,12 @@
 package gabdorahmanova.onthefence.Activities;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.LruCache;
@@ -17,7 +21,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -39,14 +47,14 @@ public class TheatreActivity extends AppCompatActivity {
     ImageButton favourite;
     ArrayList<String> titlelist = new ArrayList<>();
 
-    LruCache<String, Bitmap> mMemoryCache;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_theatre);
         info = findViewById(R.id.info);
-       // history = findViewById(R.id.history);
+
         picture = findViewById(R.id.person_photo);
         helper = findViewById(R.id.helper);
         number = findViewById(R.id.number);
@@ -73,7 +81,6 @@ public class TheatreActivity extends AppCompatActivity {
             Log.e("TheatreActivity",e.getMessage());
 
         }
-        Log.e("TheatreActivity",theatre.toString());
         setTitle(theatre.getName());
         info.setText(theatre.getInfo());
         number.setText(theatre.getNumber());
@@ -84,12 +91,7 @@ public class TheatreActivity extends AppCompatActivity {
             Log.e("fav",fav.toString());
         }
 
-        mMemoryCache = new LruCache<String, Bitmap>((int) (Runtime.getRuntime().maxMemory()) / 8) {
-            @Override
-            protected int sizeOf(String key, Bitmap bitmap) {
-                return bitmap.getByteCount();
-            }
-        };
+
 
 
         new Thread(new Runnable() {//новый поток для работы с сетью. Иначе рабоать не будет!
@@ -98,20 +100,29 @@ public class TheatreActivity extends AppCompatActivity {
                 try {
                     URL url = new URL(theatre.getPiclink());
 
-                    Bitmap pic = getBitmapFromMemCache(url.toString());
 
-                    if (pic == null) {
-                        pic = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-                        addBitmapToMemoryCache(url.toString(),pic);
-                    }
+                    final Bitmap pic;
+                    OutputStream fOut = null;
 
-                    final Bitmap finalPic = pic;
+
+                           pic = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+
+//                    File file = new File.createTempFile(Uri.parse(url.toString()).getLastPathSegment(),null,getApplicationContext().getCacheDir());
+//                    fOut = new FileOutputStream(file, Context.MODE_PRIVATE);
+
+//
+//                    Bitmap bitmap = (BitmapDrawable) iv.getDrawable().getBitmap();
+//                    bitmap.compress(Bitmap.CompressFormat.JPEG, 85, fOut);
+//                    fOut.flush();
+//                    fOut.close();
+
+
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            theatre.setPicture(finalPic);
+                            theatre.setPicture(pic);
                             helper.setVisibility(View.INVISIBLE);
-                            picture.setImageBitmap(finalPic);                           }
+                            picture.setImageBitmap(pic);                           }
                     });
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -132,6 +143,7 @@ public class TheatreActivity extends AppCompatActivity {
                         @Override
                         public void run() {
 
+
                             Elements content = doc.select("tr");
 
 
@@ -139,15 +151,20 @@ public class TheatreActivity extends AppCompatActivity {
                             for (int i = 0; i < content.size(); i++) {
                                 Element row = content.get(i);
                                 Elements cols = row.select("td");
-                                for (Element e: cols){
-                                    if (e.hasAttr("colspan")) {
-                                        int colspan = Integer.valueOf(e.attr("colspan"));
-                                        for (int y = 0; y < colspan; y++){
+                                for (int j = 1; j <= cols.size();j++){
+                                    Element e = cols.get(j-1);
+                                    if (j % 5 != 0)
                                             titlelist.add(e.text().toString());
+                                    else {
+                                        try {
+                                            Element element = e.selectFirst("a[href]");
+                                            titlelist.add(element.attr("abs:href"));
+                                        } catch (Exception ex) {
+                                            Log.e("TA165", ex.getMessage());
                                         }
-                                    } else {
-                                        titlelist.add(e.text().toString());
+
                                     }
+
                                 }
                             }
                             if (titlelist.isEmpty()){
@@ -158,8 +175,8 @@ public class TheatreActivity extends AppCompatActivity {
                                 ArrayList<Performance> data = new ArrayList<>();
 
                                 for (int i = 0; i < titlelist.size() - 5; i += 5){
-                                    Performance pr = new Performance(titlelist.get(i+1),titlelist.get(i+3),theatre.getName(),titlelist.get(i),titlelist.get(i+2));
-
+                                    Performance pr = new Performance(titlelist.get(i+1),titlelist.get(i+3),theatre.getName(),titlelist.get(i),titlelist.get(i+2),titlelist.get(i+4));
+                                    Log.e("Per",pr.toString());
                                     data.add(pr);
                                 }
 
@@ -212,18 +229,6 @@ public class TheatreActivity extends AppCompatActivity {
 
 
     }
-
-    void addBitmapToMemoryCache(String key, Bitmap bitmap) {
-        if (getBitmapFromMemCache(key) == null) {
-            Log.e("Cache",key);
-            mMemoryCache.put(key, bitmap);
-        }
-    }
-
-    Bitmap getBitmapFromMemCache(String key) {
-        return mMemoryCache.get(key);
-    }
-
 
 }
 
