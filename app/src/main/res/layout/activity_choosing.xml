@@ -10,24 +10,43 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".Activities.MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentTop="true">
+
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="90"
             android:textSize="20sp"
-            android:id="@+id/date_whic_choosed"/>
+            android:id="@+id/date_whic_choosed"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:id="@+id/choose_the_date"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
             android:text="Дата"
             android:textSize="10sp"
             />
-    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/choose_the_date"
+        android:visibility="invisible"
+        android:id="@+id/error"
+
+        />
+        <ProgressBar
+            android:layout_below="@+id/choose_the_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="invisible"
+            android:id="@+id/progressBar"
+
+
+            />
 </RelativeLayout>

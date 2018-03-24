@@ -28,7 +28,7 @@ import gabdorahmanova.onthefence.Fragments.NewsFragment;
 import gabdorahmanova.onthefence.Helpers.ParsingClass;
 import gabdorahmanova.onthefence.R;
 
-public class News_Activity extends AppCompatActivity {
+public class NewsActivity extends AppCompatActivity {
 
     ProgressBar pb;
     SimpleDraweeView photo;

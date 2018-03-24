@@ -39,7 +39,7 @@
         <activity android:name=".Activities.ChoosingActivity" />
         <activity android:name=".Activities.TheatreActivity" />
         <activity
-            android:name=".Activities.News_Activity"
+            android:name=".Activities.NewsActivity"
             android:label="@string/title_activity_news_"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

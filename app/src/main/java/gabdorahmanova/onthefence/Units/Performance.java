@@ -16,6 +16,11 @@ public class Performance {
         this.link = link;
     }
 
+    public Performance(String name,String link,String time){
+        this.name = name;
+        this.time = time;
+        this.link = link;
+    }
     @Override
     public String toString() {
         return name+" "+type+" "+place+" "+cost+ " "+time + "\n";

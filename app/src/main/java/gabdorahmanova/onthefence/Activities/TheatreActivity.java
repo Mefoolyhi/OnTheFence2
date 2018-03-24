@@ -74,18 +74,7 @@ public class TheatreActivity extends AppCompatActivity {
         pb = findViewById(R.id.progressBar);
 
 
-        RelativeLayout rl = findViewById(R.id.rl);
-        rl.setOnTouchListener(new OnSwipeTouchListener() {
-            @Override
-            public void onSwipeRight() {
-                finish();
-            }
 
-            @Override
-            public void onSwipeLeft() {
-
-            }
-        });
 
         int i = getIntent().getIntExtra("favourites", -1);
          int id = getIntent().getIntExtra("theatres", -1);
@@ -159,20 +148,19 @@ public class TheatreActivity extends AppCompatActivity {
                                 Elements cols = row.select("td");
                                 for (int j = 1; j <= cols.size();j++){
                                     Element e = cols.get(j-1);
-                                    if (j % 5 != 0)
-                                            titlelist.add(e.text());
+
+                                    if (j % 5 == 0){
+                                        Element element = e.selectFirst("a[href]");
+                                        titlelist.add(element.attr("abs:href"));
+                                    }
+
                                     else if (j % 4 != 0 && j % 2 == 0){
 
-                                        titlelist.add(e.select(".title").text());
+                                        titlelist.add(e.selectFirst("a").text());
                                     }
                                     else
                                     {
-                                        try {
-                                            Element element = e.selectFirst("a[href]");
-                                            titlelist.add(element.attr("abs:href"));
-                                        } catch (Exception ex) {
-                                            Log.e("TA165", ex.getMessage());
-                                        }
+                                        titlelist.add(e.text());
 
                                     }
 
