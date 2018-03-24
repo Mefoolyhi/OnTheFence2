@@ -3,11 +3,13 @@ package gabdorahmanova.onthefence.Adapters;
 import android.app.Activity;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import gabdorahmanova.onthefence.Activities.MainActivity;
+import gabdorahmanova.onthefence.Activities.News_Activity;
 import gabdorahmanova.onthefence.Fragments.NewsFragment;
 import gabdorahmanova.onthefence.Fragments.TheatresFragment;
 import gabdorahmanova.onthefence.Helpers.OnSwipeTouchListener;
@@ -92,6 +95,10 @@ private ArrayList<PostValue> data;
 
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(context, News_Activity.class);
+                intent.putExtra("News",pv.getMore());
+
+                context.startActivity(intent);
 
             }
 

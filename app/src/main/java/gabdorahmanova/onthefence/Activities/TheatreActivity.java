@@ -160,10 +160,10 @@ public class TheatreActivity extends AppCompatActivity {
                                 for (int j = 1; j <= cols.size();j++){
                                     Element e = cols.get(j-1);
                                     if (j % 5 != 0)
-                                            titlelist.add(e.text().toString());
+                                            titlelist.add(e.text());
                                     else if (j % 4 != 0 && j % 2 == 0){
 
-                                        titlelist.add(e.select(".title").text().toString());
+                                        titlelist.add(e.select(".title").text());
                                     }
                                     else
                                     {

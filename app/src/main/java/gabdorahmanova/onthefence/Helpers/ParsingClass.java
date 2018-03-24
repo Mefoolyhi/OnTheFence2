@@ -26,6 +26,7 @@ public class ParsingClass {
     private ArrayList<String> times = new ArrayList<>();
     private ArrayList<String> headings = new ArrayList<>();
     private ArrayList<String> links = new ArrayList<>();
+    ArrayList<String> more = new ArrayList<>();
 
 
 
@@ -37,35 +38,56 @@ public class ParsingClass {
     public void get() throws Exception{
 
             Document doc = Jsoup.connect(URL).get();
-            Elements content = doc.select(".b-subjects-list__date");
+            Elements content = doc.select(".b-subjects-list__item").select(".b-subjects-list__date");
             times.clear();
             for (Element contains : content){
-                times.add(contains.text());
+                if (!contains.parent().className().equals("b-subjects-list__item b-subjects-list__item_konkurs")) {
+
+
+                    times.add(contains.text());
+                }
             }
-            Log.e(Integer.toString(times.size()),times.toString());
-            content = doc.select(".b-subjects-list__img").select("img");
+            content = doc.select(".b-subjects-list__item").select(".b-subjects-list__img").select("img");
             links.clear();
             for (Element contains: content){
-                links.add(contains.absUrl("src"));
+                if (!contains.parent().parent().parent().className().equals("b-subjects-list__item b-subjects-list__item_konkurs")) {
+
+
+                    links.add(contains.absUrl("src"));}
             }
-            Log.e(Integer.toString(links.size()),links.toString());
-            content = doc.select(".b-subjects-list__title");
+            content = doc.select(".b-subjects-list__item").select(".b-subjects-list__title");
             headings.clear();
             for (Element contains: content){
-                headings.add(contains.text());
-            }
-            Log.e(Integer.toString(headings.size()),headings.toString());
+                if (!contains.parent().className().equals("b-subjects-list__item b-subjects-list__item_konkurs")) {
 
-            if(links.size() == times.size() && times.size() == headings.size()){
+
+                    headings.add(contains.text());
+                }            }
+
+            content = doc.select(".b-subjects-list__item").select(".b-subjects-list__img").select("a[href]");
+
+        more.clear();
+        for (Element contains: content){
+            if (!contains.parent().parent().className().equals("b-subjects-list__item b-subjects-list__item_konkurs")) {
+
+
+                more.add(contains.attr("abs:href"));
+            }        }
+            if(links.size() == times.size() && times.size() == headings.size() && headings.size() == more.size()){
                 items.clear();
                 for (int i = 0; i < headings.size();i++){
-                    PostValue pv = new PostValue(times.get(i),headings.get(i),links.get(i));
+                    PostValue pv = new PostValue(times.get(i),headings.get(i),links.get(i),more.get(i));
                     items.add(pv);
                 }
 
             }
             else{
                 Log.e("PARsING","Разные размеры, ё маё");
+                Log.e(String.valueOf(links.size()),links.toString());
+                Log.e(String.valueOf(more.size()),more.toString());
+                Log.e(String.valueOf(times.size()),times.toString());
+                Log.e(String.valueOf(headings.size()),headings.toString());
+
             }
 
 

@@ -7,15 +7,15 @@ import android.graphics.Bitmap;
  */
 
 public class PostValue {
-    private String time,heading,link;
-    private Bitmap picture;
+    private String time,heading,link,more;
 
 
-    public PostValue(String time, String heading, String link){
+    public PostValue(String time, String heading, String link,String more){
         this.time = time;
         this.heading = heading;
         this.link = link;
-    }
+        this.more = more;
+}
 
     public String getTime() {
         return time;
@@ -41,11 +41,11 @@ public class PostValue {
         this.link = link;
     }
 
-    public Bitmap getPicture() {
-        return picture;
+    public String getMore() {
+        return more;
     }
 
-    public void setPicture(Bitmap picture) {
-        this.picture = picture;
+    public void setMore(String more) {
+        this.more = more;
     }
 }

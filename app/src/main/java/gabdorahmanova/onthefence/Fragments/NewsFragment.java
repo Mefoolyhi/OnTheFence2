@@ -57,6 +57,7 @@ public class NewsFragment extends Fragment {
 
 
     class MeTask extends AsyncTask<Void, Void, Void> {
+        boolean error = false;
         ParsingClass pc;
 
         @Override
@@ -67,8 +68,7 @@ public class NewsFragment extends Fragment {
                 news = pc.getPostsList();
             }
             catch (Exception e){
-                eror.setText("Пробдемы с подключением к интернету");
-                eror.setVisibility(View.VISIBLE);
+                error = true;
             }
             return null;
         }
@@ -82,9 +82,20 @@ public class NewsFragment extends Fragment {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            RecyclerView.LayoutManager llm = new LinearLayoutManager(getActivity());
-            rv.setLayoutManager(llm);
-            rv.setAdapter(new NewsAdapter(news,getActivity()));
+            if (error == true){
+                eror.setText("Проблемы с подключением к интернету");
+                eror.setVisibility(View.VISIBLE);
+            }
+            else {
+                try {
+                    RecyclerView.LayoutManager llm = new LinearLayoutManager(getActivity());
+                    rv.setLayoutManager(llm);
+                    rv.setAdapter(new NewsAdapter(news, getActivity()));
+                } catch (Exception e) {
+                    eror.setText("Проблемы с подключением к интернету");
+                    eror.setVisibility(View.VISIBLE);
+                }
+            }
             pb.setVisibility(View.INVISIBLE);
 
 
