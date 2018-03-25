@@ -116,13 +116,6 @@ public class MainActivity extends FragmentActivity
         }
     }
 
-public void changeTheBottom(int i){
-
-    BottomNavigationView bottomNavigationView = findViewById(R.id.navigation);
-
-    bottomNavigationView.getMenu().getItem(i).setChecked(true);
-
-}
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

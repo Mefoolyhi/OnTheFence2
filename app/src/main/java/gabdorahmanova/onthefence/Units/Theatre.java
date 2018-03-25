@@ -19,7 +19,7 @@ public class Theatre {
         this.id = id;
     }
 
-    Integer fav;
+    String fav;
     String name;
     String link;
     String info;
@@ -27,7 +27,7 @@ public class Theatre {
 
     String number, site;
 
-    public Integer getFav() {
+    public String getFav() {
         return fav;
     }
 
@@ -52,7 +52,7 @@ public class Theatre {
         return name + " " + id + " " + fav;
     }
 
-    public void setFav(Integer fav) {
+    public void setFav(String fav) {
         this.fav = fav;
     }
 
@@ -91,7 +91,7 @@ public class Theatre {
 
     public Theatre(int id, String name,
                    String link,
-                   String info, String piclink, String number, String site, Integer fav) {
+                   String info, String piclink, String number, String site, String fav) {
         this.name = name;
         this.id = id;
         this.link = link;

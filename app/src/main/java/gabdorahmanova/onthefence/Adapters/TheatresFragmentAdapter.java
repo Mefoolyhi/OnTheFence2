@@ -67,19 +67,26 @@ public class TheatresFragmentAdapter extends RecyclerView.Adapter<TheatresFragme
 
 
         int pos;
+        String name;
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(context, TheatreActivity.class);
 
-            intent.putExtra(way,pos);
+            if (way.equals("favourites")){
+                intent.putExtra(way,new String[]{String.valueOf(pos),name});
+            }
+            else{
+                intent.putExtra(way,pos);
+            }
             context.startActivity(intent);
 
         }
 
 
-        void setRecord(int pos) {
+        void setRecord(int pos,String name) {
 
             this.pos = pos;
+            this.name = name;
         }
     }
 
@@ -136,7 +143,7 @@ public class TheatresFragmentAdapter extends RecyclerView.Adapter<TheatresFragme
 
 
 
-        holder.cvListener.setRecord(position);
+        holder.cvListener.setRecord(position, theater.getName());
 
 
 

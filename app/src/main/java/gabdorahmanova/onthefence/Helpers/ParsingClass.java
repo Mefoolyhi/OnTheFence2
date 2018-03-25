@@ -19,7 +19,7 @@ import gabdorahmanova.onthefence.Units.PostValue;
  */
 
 public class ParsingClass {
-    private String URL = "http://www.justmedia.ru/news/culture ";
+    private String URL;
 
 
     private ArrayList<PostValue> items = new ArrayList<>();
@@ -29,6 +29,14 @@ public class ParsingClass {
     ArrayList<String> more = new ArrayList<>();
 
 
+    public ParsingClass(String URL){
+        this.URL = URL;
+        links.clear();
+        times.clear();
+        headings.clear();
+        more.clear();
+        items.clear();
+    }
 
     public ArrayList<PostValue> getPostsList(){
 
@@ -37,9 +45,11 @@ public class ParsingClass {
 
     public void get() throws Exception{
 
+
             Document doc = Jsoup.connect(URL).get();
-            Elements content = doc.select(".b-subjects-list__item").select(".b-subjects-list__date");
-            times.clear();
+            Log.e("Parsing",URL);
+            Elements content = doc.select("ul").select("div").select(".b-subjects-list__item").select(".b-subjects-list__date");
+
             for (Element contains : content){
                 if (!contains.parent().className().equals("b-subjects-list__item b-subjects-list__item_konkurs")) {
 
@@ -48,7 +58,7 @@ public class ParsingClass {
                 }
             }
             content = doc.select(".b-subjects-list__item").select(".b-subjects-list__img").select("img");
-            links.clear();
+
             for (Element contains: content){
                 if (!contains.parent().parent().parent().className().equals("b-subjects-list__item b-subjects-list__item_konkurs")) {
 
@@ -56,7 +66,7 @@ public class ParsingClass {
                     links.add(contains.absUrl("src"));}
             }
             content = doc.select(".b-subjects-list__item").select(".b-subjects-list__title");
-            headings.clear();
+
             for (Element contains: content){
                 if (!contains.parent().className().equals("b-subjects-list__item b-subjects-list__item_konkurs")) {
 
@@ -66,7 +76,7 @@ public class ParsingClass {
 
             content = doc.select(".b-subjects-list__item").select(".b-subjects-list__img").select("a[href]");
 
-        more.clear();
+
         for (Element contains: content){
             if (!contains.parent().parent().className().equals("b-subjects-list__item b-subjects-list__item_konkurs")) {
 
@@ -74,11 +84,17 @@ public class ParsingClass {
                 more.add(contains.attr("abs:href"));
             }        }
             if(links.size() == times.size() && times.size() == headings.size() && headings.size() == more.size()){
-                items.clear();
+
                 for (int i = 0; i < headings.size();i++){
                     PostValue pv = new PostValue(times.get(i),headings.get(i),links.get(i),more.get(i));
                     items.add(pv);
                 }
+
+
+                Log.e(String.valueOf(links.size()),links.toString());
+                Log.e(String.valueOf(more.size()),more.toString());
+                Log.e(String.valueOf(times.size()),times.toString());
+                Log.e(String.valueOf(headings.size()),headings.toString());
 
             }
             else{

@@ -31,7 +31,7 @@ public class DataTheatre {
     public Theatre getTheatre(int id) {
         Cursor c = helper.query("theatres", null, null, null, null, null, null);
         c.moveToPosition(id);
-        Theatre theatre = new Theatre(c.getInt(0), c.getString(1), c.getString(6), c.getString(3), c.getString(2),c.getString(4),c.getString(5),c.getInt(7));
+        Theatre theatre = new Theatre(c.getInt(0), c.getString(1), c.getString(6), c.getString(3), c.getString(2),c.getString(4),c.getString(5),c.getString(7));
 
         helper.close();
         return theatre;
@@ -42,13 +42,14 @@ public class DataTheatre {
         ContentValues cv = new ContentValues();
 
         cv.put("name",theatre.getName());
-        cv.put("id_in_array",position);
+        cv.put("id_in_array",--position);
         cv.put("type","theatre");
+        cv.put("id",theatre.getName());
 
         helper.insert(cv);
 
     }
-    public void deleteFromFavourites(int id){
+    public void deleteFromFavourites(String id){
         int j = this.getFavourites().size();
         helper.delete(id);
         int y = this.getFavourites().size();
@@ -62,7 +63,7 @@ public class DataTheatre {
 
 
     }
-    public void updateStatus(Theatre th, int id){
+    public void updateStatus(Theatre th, String id){
         ContentValues cv = new ContentValues();
         cv.put("name",th.getName());
         cv.put("picture",th.getPiclink());
@@ -122,7 +123,7 @@ public class DataTheatre {
         c = helper.query("theatres", null, null, null, null, null, null);
         if (c.moveToFirst()) {
             do {
-                Theatre th = new Theatre(c.getInt(0), c.getString(1), c.getString(6), c.getString(3), c.getString(2), c.getString(4),c.getString(5),c.getInt(7));
+                Theatre th = new Theatre(c.getInt(0), c.getString(1), c.getString(6), c.getString(3), c.getString(2), c.getString(4),c.getString(5),c.getString(7));
 
                 data.add(th);
             } while (c.moveToNext());

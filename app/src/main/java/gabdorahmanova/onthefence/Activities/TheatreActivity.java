@@ -50,7 +50,7 @@ public class TheatreActivity extends AppCompatActivity {
     SimpleDraweeView picture;
     Theatre theatre;
     ListView schedule;
-    Integer fav;
+    String fav;
     ImageButton favourite;
     ArrayList<String> titlelist = new ArrayList<>();
     ProgressBar pb;
@@ -76,7 +76,7 @@ public class TheatreActivity extends AppCompatActivity {
 
 
 
-        int i = getIntent().getIntExtra("favourites", -1);
+        String[] i = getIntent().getStringArrayExtra("favourites" );
          int id = getIntent().getIntExtra("theatres", -1);
 
 
@@ -89,7 +89,7 @@ public class TheatreActivity extends AppCompatActivity {
 
         }catch (Exception e){
 
-            theatre = dt.getFromFavourites(i);
+            theatre = dt.getFromFavourites(Integer.parseInt(i[0]));
             Log.e("TheatreActivity",e.getMessage());
 
         }
@@ -99,9 +99,9 @@ public class TheatreActivity extends AppCompatActivity {
         site.setText(theatre.getSite());
         fav = theatre.getFav();
         defaultt.setText("Репертуар на сезон пока отсутствует");
-        if (!fav.equals(-1)){
+        if (!fav.equals("-1")){
             favourite.setImageResource(R.drawable.ic_favorite_black_24dp);
-            Log.e("fav",fav.toString());
+            Log.e("fav",fav);
         }
 
 
@@ -203,13 +203,13 @@ public class TheatreActivity extends AppCompatActivity {
         favourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (fav != -1){
+                if (!fav.equals("-1")){
                     try {
                         DataTheatre dt = new DataTheatre(getApplicationContext());
                         dt.deleteFromFavourites(theatre.getFav());
                         favourite.setImageResource(R.drawable.ic_favorite_border_black_24dp);
-                        fav = -1;
-                        dt.updateStatus(theatre, -1);
+                        fav = "-1";
+                        dt.updateStatus(theatre, "-1");
 
 
                     }
@@ -220,9 +220,9 @@ public class TheatreActivity extends AppCompatActivity {
 
                 }else{
                     DataTheatre dt = new DataTheatre(getApplicationContext());
-                    dt.addToFavourites(theatre,theatre.getId()-1);
+                    dt.addToFavourites(theatre,theatre.getId());
                     favourite.setImageResource(R.drawable.ic_favorite_black_24dp);
-                    fav = dt.getFavourites().size() ;
+                    fav = theatre.getName() ;
                     dt.updateStatus(theatre,fav);
 
                 }

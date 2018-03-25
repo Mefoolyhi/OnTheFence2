@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,17 @@ public class NewsFragment extends Fragment {
     eror = view.findViewById(R.id.eror_text);
     pb.setVisibility(View.INVISIBLE);
     eror.setVisibility(View.INVISIBLE);
+        rv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView,int newState){
+                super.onScrollStateChanged(recyclerView,newState);
+                if (!recyclerView.canScrollVertically(1)) {
+                    new MeTask().execute();
+
+                }
+            }
+        });
+
 
 
         new MeTask().execute();
@@ -55,6 +67,7 @@ public class NewsFragment extends Fragment {
         return fragment;
     }
 
+    int count = 0;
 
     class MeTask extends AsyncTask<Void, Void, Void> {
         boolean error = false;
@@ -63,12 +76,15 @@ public class NewsFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             try {
-                pc = new ParsingClass();
+                pc = new ParsingClass("http://www.justmedia.ru/news/culture#"+count);
                 pc.get();
                 news = pc.getPostsList();
+                count += 15;
+                Log.e("News", String.valueOf(news.size()));
             }
             catch (Exception e){
                 error = true;
+                Log.e("News",e.getMessage());
             }
             return null;
         }
@@ -88,9 +104,10 @@ public class NewsFragment extends Fragment {
             }
             else {
                 try {
-                    RecyclerView.LayoutManager llm = new LinearLayoutManager(getActivity());
-                    rv.setLayoutManager(llm);
+                    rv.setLayoutManager(new LinearLayoutManager(getActivity()));
                     rv.setAdapter(new NewsAdapter(news, getActivity()));
+
+
                 } catch (Exception e) {
                     eror.setText("Проблемы с подключением к интернету");
                     eror.setVisibility(View.VISIBLE);

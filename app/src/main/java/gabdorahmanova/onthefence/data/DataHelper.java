@@ -46,7 +46,7 @@ public class DataHelper extends SQLiteOpenHelper {
         myDataBase.update("theatres",cv,"_id=?",new String[]{String.valueOf(id)});
         myDataBase.close();
     }
-    public void delete(int id){
+    public void delete(String id){
         try {
             this.openDataBase();
             myDataBase.delete("favourites", "id=" + id, null);
@@ -111,8 +111,13 @@ public class DataHelper extends SQLiteOpenHelper {
 
     public void insert(ContentValues cv){
         this.openDataBase();
-        myDataBase.insert("favourites",null,cv);
-        myDataBase.close();
+        try {
+            myDataBase.insert("favourites", null, cv);
+            myDataBase.close();
+        }
+        catch (Exception e){
+            Log.e("Helper",e.getMessage());
+        }
     }
 
     @Override
